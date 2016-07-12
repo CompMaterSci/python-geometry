@@ -19,5 +19,14 @@ setup(
     license='BSD',
     author='Stefan Sandfeld',
     author_email='stefan.sandfeld@fau.de',
-    description='Dealing with geometrical problems using Python.'
+    description='Dealing with geometrical problems using Python.',
+    install_requires=[
+        'numpy'
+    ],
+    setup_requires=[
+        'pytest-runner'
+    ],
+    tests_require=[
+        'pytest'
+    ]
 )
