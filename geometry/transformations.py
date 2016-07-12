@@ -95,5 +95,3 @@ class OrthogonalTransformation(Transformation):
         # The inverse of an orthonormal matrix
         # Copy makes sure that the data is contiguous in memory
         return transformation_matrix.T.copy()
-
-
