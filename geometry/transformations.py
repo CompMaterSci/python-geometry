@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""
+    This module implements coordinate transformations.
+
+    .. versionadded:: 0.1
+
+"""
 from numpy import allclose, asanyarray, cross, dot, einsum, isclose
 from numpy.linalg import inv, norm
 
@@ -13,7 +19,15 @@ def _are_orthogonal(vector_0, vector_1):
 
 
 class Transformation(object):
-    """Transform coordinates."""
+    """The transformation object implements the basic interface to coordinate
+    transformations.
+
+    Parameters
+    ----------
+    x, y, z
+        The new basis vectors expressed in the terms of the reference basis.
+
+    """
 
     def __init__(self, x, y, z):
         self._x = x
@@ -33,10 +47,36 @@ class Transformation(object):
         return inv(transformation_matrix)
 
     def pushforward(self, vectors):
+        """Transform vectors from reference to target coordinate system.
+
+        Parameters
+        ----------
+        vectors
+            Vectors in the reference coordinate system.
+
+        Returns
+        -------
+        np.ndarray
+            Vectors in the target coordinate system.
+
+        """
         v = asanyarray(vectors)
         return einsum('...i,ij->...j', v, self.transformation_matrix)
 
     def pullback(self, vectors):
+        """Transform vectors from target to reference coordinate system.
+
+        Parameters
+        ----------
+        vectors
+            Vectors in the target coordinate system.
+
+        Returns
+        -------
+        np.ndarray
+            Vectors in the reference coordinate system.
+
+        """
         v = asanyarray(vectors)
         return einsum('...i,ij->...j', v, self.inverse_transformation_matrix)
 
@@ -50,7 +90,16 @@ class Transformation(object):
 
 
 class OrthogonalTransformation(Transformation):
-    """Transform coordinates."""
+    """Transform coordinates using an orthogonal transformation.
+
+    Parameters
+    ----------
+    x, y, z
+        The new basis vectors expressed in the terms of the reference basis. At
+        least two have to be given. If all three are given a check is performed
+        to make sure that the new basis is orthogonal and right-handed.
+
+    """
 
     def __init__(self, x=None, y=None, z=None):
         if x is not None:

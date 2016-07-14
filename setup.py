@@ -28,5 +28,12 @@ setup(
     ],
     tests_require=[
         'pytest'
-    ]
+    ],
+    extras_require={
+        'docs': [
+            'sphinx',
+            'sphinx_rtd_theme',
+            'numpydoc'
+        ]
+    }
 )

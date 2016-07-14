@@ -9,5 +9,8 @@ env:
     - TESTENV=py34
     - TESTENV=py35
     - TESTENV=flake8
+    - TESTENV=docs
+    - TESTENV=docs_linkcheck
+    - TESTENV=doctest
 script:
   - tox -r -e $TESTENV
