@@ -18,9 +18,9 @@ def _are_orthogonal(vector_0, vector_1):
     return bool(isclose(dot(vector_0, vector_1), 0))
 
 
-class Transformation(object):
-    """The transformation object implements the basic interface to coordinate
-    transformations.
+class AffineTransformation(object):
+    """The affine transformation object implements the basic interface to
+    affine coordinate transformations.
 
     Parameters
     ----------
@@ -89,7 +89,7 @@ class Transformation(object):
             ')').format(self=self)
 
 
-class OrthogonalTransformation(Transformation):
+class OrthogonalTransformation(AffineTransformation):
     """Transform coordinates using an orthogonal transformation.
 
     Parameters

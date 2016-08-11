@@ -13,7 +13,7 @@ Transformations
 
 .. automodule:: geometry.transformations
 
-.. autoclass:: Transformation
+.. autoclass:: AffineTransformation
    :members:
 
 .. autoclass:: OrthogonalTransformation

@@ -4,7 +4,7 @@ from numpy import array, sqrt
 from numpy.testing import assert_allclose
 
 from geometry.transformations import (
-    _build_row_vector_matrix, Transformation, OrthogonalTransformation)
+    _build_row_vector_matrix, AffineTransformation, OrthogonalTransformation)
 
 
 class TestBuildRowVectorMatrix(object):
@@ -30,16 +30,17 @@ class TestBuildRowVectorMatrix(object):
             array([[0, -1, 0], [1, 0, 0], [0, 0, 1]]))
 
 
-class TestTransformation(object):
+class TestAffineTransformation(object):
 
     def test_repr_GivenUnitBasis_ReturnCorrectRepr(self):
-        transformation = Transformation(x=(1, 0, 0), y=(0, 1, 0), z=(0, 0, 1))
+        transformation = AffineTransformation(
+            x=(1, 0, 0), y=(0, 1, 0), z=(0, 0, 1))
         assert (
             repr(transformation) ==
-            'Transformation(x=(1, 0, 0), y=(0, 1, 0), z=(0, 0, 1))')
+            'AffineTransformation(x=(1, 0, 0), y=(0, 1, 0), z=(0, 0, 1))')
 
     def test_Pushforward_ComplexExample_ReturnCorrectVectors(self):
-        transformation = Transformation(
+        transformation = AffineTransformation(
             x=(-2, 0, 2), y=(-1, 2, -1), z=(-1, -1, -1))
         vectors = (
             (0, 0, 0),
@@ -65,7 +66,7 @@ class TestTransformation(object):
             transformation.pushforward(vectors), expected, atol=1e-8)
 
     def test_Pullback_ComplexExample_ReturnCorrectVectors(self):
-        transformation = Transformation(
+        transformation = AffineTransformation(
             x=(-2, 0, 2), y=(-1, 2, -1), z=(-1, -1, -1))
         vectors = (
             (+0, +0, +0),
