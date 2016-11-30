@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from geometry.vector_utilities import are_parallel
+from python_geometry.vector_utilities import are_parallel
 
 
 class TestAreParallel:

@@ -3,7 +3,7 @@ import pytest
 from numpy import array
 from numpy.testing import assert_array_equal
 
-from geometry.plane import Plane
+from python_geometry.plane import Plane
 
 
 class TestContains:

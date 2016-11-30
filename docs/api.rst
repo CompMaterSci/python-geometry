@@ -3,7 +3,7 @@
 API
 ===
 
-.. module:: geometry
+.. module:: python_geometry.geometry
 
 This part of the documentation covers all the interfaces of geometry.
 
@@ -11,7 +11,7 @@ This part of the documentation covers all the interfaces of geometry.
 Transformations
 ---------------
 
-.. automodule:: geometry.transformations
+.. automodule:: python_geometry.transformations
 
 .. autoclass:: AffineTransformation
    :members:

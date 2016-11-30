@@ -3,7 +3,7 @@ import pytest
 from numpy import array, sqrt
 from numpy.testing import assert_allclose
 
-from geometry.transformations import (
+from python_geometry.transformations import (
     _build_row_vector_matrix, AffineTransformation, OrthogonalTransformation)
 
 

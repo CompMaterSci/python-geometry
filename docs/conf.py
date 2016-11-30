@@ -59,8 +59,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'geometry'
-author = 'Stefan Sandfeld'
+project = 'python-geometry'
+author = 'Dominik Steinberger'
 copyright = '{}, {}'.format(datetime.date.today().year, author)
 
 # The version info for the project you're documenting, acts as replacement for
