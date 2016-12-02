@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-from numpy import asanyarray, isclose
+from numpy import asanyarray, dot, isclose
+
+from .config import config
 
 
 class Plane(object):
@@ -10,4 +12,8 @@ class Plane(object):
 
     def contains(self, point):
         return isclose(
-            (asanyarray(point)-self.point_in_plane).dot(self.normal_vector), 0)
+            dot(
+                asanyarray(point)-self.point_in_plane,
+                self.normal_vector),
+            0,
+            **config['numbers_close_kwargs'])

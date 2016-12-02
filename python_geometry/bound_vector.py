@@ -63,11 +63,11 @@ class BoundVector(object):
             allclose(
                 other.initial_point,
                 self.initial_point,
-                **config['allclose_kwargs']) and
+                **config['numbers_close_kwargs']) and
             allclose(
                 other.terminal_point,
                 self.terminal_point,
-                **config['allclose_kwargs']) and
+                **config['numbers_close_kwargs']) and
             other.initial_point_included is self.initial_point_included and
             other.terminal_point_included is self.terminal_point_included)
 
