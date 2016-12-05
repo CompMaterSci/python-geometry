@@ -57,6 +57,10 @@ class BoundVector(object):
     def terminal_point_included(self, value):
         self._terminal_point_included = bool(value)
 
+    @property
+    def free_vector(self):
+        return self.terminal_point - self.initial_point
+
     def __eq__(self, other):
         return (
             isinstance(other, BoundVector) and

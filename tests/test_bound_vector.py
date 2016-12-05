@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from numpy import array
+from numpy.testing import assert_allclose
 
 from python_geometry.bound_vector import BoundVector
 
@@ -124,3 +125,18 @@ class TestRepr(object):
             initial_point_included=False,
             terminal_point_included=False)
         assert eval(repr(bound_vector)) == bound_vector
+
+
+class TestFreeVector:
+
+    def test_IntegerBoundVector_ReturnCorrectFreeVector_0(self):
+        bound_vector = BoundVector(
+            initial_point=array([0, 0, 0]),
+            terminal_point=array([1, 1, 1]))
+        assert_allclose(bound_vector.free_vector, array([1, 1, 1]))
+
+    def test_BoundVector_ReturnCorrectFreeVector_1(self):
+        bound_vector = BoundVector(
+            initial_point=array([-1, 1.5, 1]),
+            terminal_point=array([1, 1, 1]))
+        assert_allclose(bound_vector.free_vector, array([2, -0.5, 0]))
