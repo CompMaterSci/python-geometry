@@ -4,6 +4,7 @@ import re
 from numpy import all, allclose, asanyarray, isclose, copy, roll, where
 
 from .config import config
+from .utilities import get_normal_vector
 
 
 class SimplePolygon(object):
@@ -20,6 +21,11 @@ class SimplePolygon(object):
     @vertices.setter
     def vertices(self, value):
         self._vertices = asanyarray(value)
+
+    @property
+    def normal_vector(self):
+        vertex_list = self.vertices.tolist()
+        return get_normal_vector(vertex_list + [vertex_list[0]])
 
     def __eq__(self, other):
         try:
