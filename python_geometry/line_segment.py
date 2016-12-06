@@ -58,18 +58,28 @@ class LineSegment(object):
         self._end_point_1_included = bool(value)
 
     def __eq__(self, other):
-        self_points = sorted(
-            [self.end_point_0.tolist(), self.end_point_1.tolist()])
-        other_points = sorted(
-            [other.end_point_0.tolist(), other.end_point_1.tolist()])
+        self_points_info = sorted(
+            [
+                (self.end_point_0.tolist(), self.end_point_0_included),
+                (self.end_point_1.tolist(), self.end_point_1_included)
+            ],
+            key=lambda pair: pair[0])
+        self_points = [point for point, point_included in self_points_info]
+        other_points_info = sorted(
+            [
+                (other.end_point_0.tolist(), other.end_point_0_included),
+                (other.end_point_1.tolist(), other.end_point_1_included)
+            ],
+            key=lambda pair: pair[0])
+        other_points = [point for point, point_included in other_points_info]
         return (
             isinstance(other, LineSegment) and
             allclose(
                 other_points,
                 self_points,
                 **config['numbers_close_kwargs']) and
-            other.end_point_0_included is self.end_point_0_included and
-            other.end_point_1_included is self.end_point_1_included)
+            other_points_info[0][1] is self_points_info[0][1] and
+            other_points_info[1][1] is self_points_info[1][1])
 
     def __repr__(self):
         return (
