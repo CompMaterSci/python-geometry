@@ -2,8 +2,8 @@
 from __future__ import division
 
 from numpy import (
-    allclose, asanyarray, cross, dot, errstate, isclose, mean, nanmean, stack,
-    zeros)
+    allclose, asanyarray, cross, dot, errstate, isclose, mean, nan_to_num,
+    nanmean, stack, zeros)
 from numpy.linalg import det, norm
 
 from .config import config
@@ -354,14 +354,30 @@ def _get_intersection_bound_vector_bound_vector(
 
 
 def _get_intersection_bound_vector_plane(bound_vector, plane):
+    distance_to_plane = dot(
+        plane.point_in_plane - bound_vector.initial_point,
+        plane.normal_vector)
+    projected_vector_length = dot(
+        bound_vector.free_vector,
+        plane.normal_vector)
 
-    param = (
-        dot(
-            plane.point_in_plane - bound_vector.initial_point,
-            plane.normal_vector) /
-        dot(
-            bound_vector.terminal_point - bound_vector.initial_point,
-            plane.normal_vector))
+    distance_to_plane_close_to_zero = isclose(
+        distance_to_plane,
+        0,
+        **config['numbers_close_kwargs'])
+    projected_vector_length_close_to_zero = isclose(
+        projected_vector_length,
+        0,
+        **config['numbers_close_kwargs'])
+    if (
+            distance_to_plane_close_to_zero and
+            projected_vector_length_close_to_zero):
+        return bound_vector
+
+    param = nan_to_num(distance_to_plane / projected_vector_length)
+
+    # TODO: add distinction for included and excluded initial and terminal
+    # points
     if 0 <= param <= 1:
         intersection = (
             bound_vector.initial_point +

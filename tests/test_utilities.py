@@ -913,7 +913,6 @@ class TestGetIntersection(object):
             normal_vector=array([1, 0, 0]))
         assert get_intersection(bound_vector, plane) is None
 
-
     def test_BoundVectorThatDoesNotIntersectPlaneIntersection_ReturnNone_1(self):
         bound_vector = BoundVector(
             initial_point=array([-2, 0, 0]),
@@ -922,3 +921,23 @@ class TestGetIntersection(object):
             point_in_plane=array([0, 0, 0]),
             normal_vector=array([1, 0, 0]))
         assert get_intersection(bound_vector, plane) is None
+
+    def test_BoundVectorThatIsParallelToAndDoesNotIntersectPlane_ReturnNone(self):
+        bound_vector = BoundVector(
+            initial_point=array([1, 0, 0]),
+            terminal_point=array([1, 1, 0]))
+        plane = Plane(
+            point_in_plane=array([0, 0, 0]),
+            normal_vector=array([1, 0, 0]))
+        assert get_intersection(bound_vector, plane) is None
+
+    def test_BoundVectorThatIsInPlane_ReturnBoundVector(self):
+        bound_vector = BoundVector(
+            initial_point=array([0, 0, 0]),
+            terminal_point=array([0, 1, 0]))
+        plane = Plane(
+            point_in_plane=array([0, 0, 0]),
+            normal_vector=array([1, 0, 0]))
+        actual = get_intersection(bound_vector, plane)
+        expected = bound_vector
+        assert actual == expected
