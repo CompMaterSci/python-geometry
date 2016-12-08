@@ -17,3 +17,6 @@ class Plane(object):
                 self.normal_vector),
             0,
             **config['numbers_close_kwargs'])
+
+    def distance(self, points):
+        return dot(points - self.point_in_plane, self.normal_vector)

@@ -374,7 +374,8 @@ def _get_intersection_bound_vector_plane(bound_vector, plane):
             projected_vector_length_close_to_zero):
         return bound_vector
 
-    param = nan_to_num(distance_to_plane / projected_vector_length)
+    with errstate(divide='ignore'):
+        param = nan_to_num(distance_to_plane / projected_vector_length)
 
     # TODO: add distinction for included and excluded initial and terminal
     # points
