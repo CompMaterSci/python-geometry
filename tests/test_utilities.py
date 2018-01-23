@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 import pytest
 from numpy.testing import assert_allclose
-from numpy import array
+from numpy import array, sqrt
 
-from python_geometry.utilities import get_intersection, get_normal_vector
+from python_geometry.utilities import (
+    get_intersection, get_normal_vector, get_tangent_vectors)
 from python_geometry.plane import Plane
 from python_geometry.bound_vector import BoundVector
 from python_geometry.line_segment import LineSegment
@@ -55,6 +56,33 @@ class TestGetNormalVector:
             (1, 1, 1)
         ]
         assert_allclose(get_normal_vector(points), (0, 0, 0))
+
+
+class TestGetTangentVectors:
+
+    def test__given_2d_polygon_with_three_points__return_tangents(self):
+        points = [
+            (0, 0),
+            (0, 1),
+            (1, 1)
+        ]
+        expected_result = [
+            (-1/sqrt(10), 3/sqrt(10)),
+            (1/sqrt(2), 1/sqrt(2)),
+            (3/sqrt(10), -1/sqrt(10))
+        ]
+        assert_allclose(get_tangent_vectors(points), expected_result)
+
+    def test__given_2d_polygon_with_two_points__return_tangents(self):
+        points = [
+            (0, 0),
+            (1, 1)
+        ]
+        expected_result = [
+            (1/sqrt(2), 1/sqrt(2)),
+            (1/sqrt(2), 1/sqrt(2))
+        ]
+        assert_allclose(get_tangent_vectors(points), expected_result)
 
 
 class TestGetIntersection(object):

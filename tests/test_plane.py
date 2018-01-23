@@ -21,7 +21,7 @@ class TestContains:
         ]
     )
     def test_GivenPlaneAndGivenPoint_ReturnIfPlaneContainsPoint(self, plane, point, contained):
-        assert plane.contains(point) is contained
+        assert plane.contains(point) == contained
 
     def test_GivenPlaneAndGivenPointArray_ReturnIfPlaneContainsPoints(self):
         plane = Plane((1, 2, 3), (1, 1, 1))

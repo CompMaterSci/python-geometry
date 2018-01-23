@@ -18,4 +18,4 @@ class TestAreParallel:
         ]
     )
     def test_GivenVectors_ReturnAreParallel(self, a, b, expected):
-        assert are_parallel(a, b) is expected
+        assert are_parallel(a, b) == expected

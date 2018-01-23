@@ -3,7 +3,7 @@ from __future__ import division
 
 from numpy import (
     allclose, asanyarray, cross, dot, errstate, isclose, mean, nan_to_num,
-    nanmean, stack, zeros)
+    nanmean, newaxis, stack, zeros, zeros_like)
 from numpy.linalg import det, norm
 
 from .config import config
@@ -22,6 +22,25 @@ def get_normal_vector(points):
     if allclose(normal_vector, 0):
         return zeros(points.shape[1])
     return normal_vector/norm(normal_vector)
+
+
+def get_tangent_vectors(points):
+    points = asanyarray(points)
+    tangents = zeros_like(points)
+
+    # differences of accuracy two require three points
+    if len(points) > 2:
+        tangents[0] = -3*points[0] + 4*points[1] - points[2]
+        tangents[1:-1] = points[2:] - points[:-2]
+        tangents[-1] = 3*points[-1] - 4*points[-2] + points[-3]
+    else:
+        tangents[0] = points[1] - points[0]
+        tangents[-1] = points[-1] - points[-2]
+
+    # in general tangents should have a length of one
+    tangents = tangents / norm(tangents, axis=-1)[..., newaxis]
+
+    return tangents
 
 
 def get_intersection(object_0, object_1):

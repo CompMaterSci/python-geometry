@@ -24,9 +24,9 @@ can now be used to transform vectors from the current coordinate system to the
 target coordinate system
 
 >>> transformation.pushforward(np.array([1, 0, 1]))
-array([ 0.,  1.,  1.])
+array([0., 1., 1.])
 
 or vice-versa
 
 >>> transformation.pullback(np.array([0, 1, 1]))
-array([ 1.,  0.,  1.])
+array([1., 0., 1.])
